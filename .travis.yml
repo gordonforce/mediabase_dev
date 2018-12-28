@@ -20,13 +20,18 @@ jobs:
     deploy:
       provider: releases
       api_key: $GITHUB_OAUTH_TOKEN
-      file: "applications/moviefun/build/libs/moviefun-1.0-SNAPSHOT.war"
+      file:
+      - "applications/moviefun/build/libs/moviefun-1.0-SNAPSHOT.war"
+      - "applications/movies-ms/build/libs/movies-ms-1.0-SNAPSHOT.jar"
+      - "applications/podcasts-ms/build/libs/podcasts-ms-1.0-SNAPSHOT.jar"
       skip_cleanup: true
   - stage: deploy to test
     language: java
     script:
     - echo "Downloading $RELEASE_TAG"
     - wget -P applications/moviefun/build/libs https://github.com/$GITHUB_USERNAME/mediabase/releases/download/$RELEASE_TAG/moviefun-1.0-SNAPSHOT.war
+    - wget -P applications/movies-ms/build/libs https://github.com/$GITHUB_USERNAME/mediabase/releases/download/$RELEASE_TAG/movies-ms-1.0-SNAPSHOT.jar
+    - wget -P applications/podcasts-ms/build/libs https://github.com/$GITHUB_USERNAME/mediabase/releases/download/$RELEASE_TAG/podcasts-ms-1.0-SNAPSHOT.jar
     before_deploy:
     - echo "Deploying $RELEASE_TAG to test"
     deploy:
