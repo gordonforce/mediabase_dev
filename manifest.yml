@@ -20,4 +20,5 @@ applications:
   - route: <initials>-moviefun.apps.pcf.paltraining.perficient.com
   services:
   - service-registry
+  - circuit-breaker
 
